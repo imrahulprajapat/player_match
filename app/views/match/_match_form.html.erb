@@ -1,0 +1,4 @@
+<%= form_for match, url: @url do |f| %>
+	<%= f.text_field :title, class: "form-control form-control-sm", placeholder: "match title here"%></br>
+	<%= f.submit "Save", class: "btn btn-sm btn-info btn-block"  %>
+<% end %>

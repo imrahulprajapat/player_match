@@ -1,0 +1,37 @@
+# PostgreSQL. Versions 9.1 and up are supported.
+#
+# Install the pg driver:
+#   gem install pg
+# On OS X with Homebrew:
+#   gem install pg -- --with-pg-config=/usr/local/bin/pg_config
+# On OS X with MacPorts:
+#   gem install pg -- --with-pg-config=/opt/local/lib/postgresql84/bin/pg_config
+# On Windows:
+#   gem install pg
+#       Choose the win32 build.
+#       Install PostgreSQL and put its /bin directory on your path.
+#
+# Configure Using Gemfile
+# gem 'pg'
+#
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("username") { 'username' } %>
+  password: <%= ENV.fetch("password") { 'password' } %>
+
+development:
+  <<: *default
+  database: player_match_development
+
+test:
+  <<: *default
+  database: player_match_test
+
+production:
+  <<: *default
+  database: player_match_production
+  username: player_match
+  password: <%= ENV['PLAYER_MATCH_DATABASE_PASSWORD'] %>

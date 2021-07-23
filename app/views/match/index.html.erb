@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row m-2">
+    <%= render partial: "match_form", :locals => {:match => @match} %>
+  </div>
+  <table class="table table-sm table-striped table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Total Players</th>
+        <th scope="col">Completed?</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @matches.each do |match| %>
+      <tr>
+        <th scope="row"><%= match.id %></th>
+        <td><%= match.title %></td>
+        <td><%= match.players.count %></td>
+        <td><%= match.is_completed ? raw('<span class="text-success">Yes</span>') : raw('<span class="text-danger">No</span>') %></td>
+        <td>
+          <%= link_to "Show", match_path(match), class: 'btn btn-sm btn-success' %>
+          <%= link_to "Edit", edit_match_path(match), class: 'btn btn-sm btn-success' %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>  

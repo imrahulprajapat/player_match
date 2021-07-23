@@ -1,0 +1,32 @@
+<hr>
+<div class="container">
+	<pre>
+		Player count : <%= @match_details.count %>
+		match completed? : <%= @match.is_completed %>
+		<% if @match_details.count < 2 %>
+			<p>Add player to match</p>	
+		<%end%>		
+	</pre>
+
+	<div class="row">
+		<%  @match_details.each_with_index do |match_detail, index| %>
+			<div class="col-6 text-left <%= (match_detail.match.winner_id == match_detail.player_id ) ? 'text-success' : '' %>">
+				<h4>Player <%= index +1 %> Details</h4>
+					<p> Full Name: <%= match_detail.player.full_name %> </p>
+					<p> Contact Number: <%= match_detail.player.number %> </p>
+					<p> Score: <%= match_detail.score&.to_f %> </p>
+					<%unless  @match.is_completed %>
+						<%= form_tag match_add_score_path(match_id: match_detail.match_id, player_id: match_detail.player_id), class: 'form-inline' do |f| %>
+						  <div class="form-group mb-2">
+						    <%= text_field_tag :score, nil, required: true %>
+						  	<%= submit_tag "Add Score", class: 'text-light btn btn-info btn-sm' %>
+						  </div>
+						<% end %>
+					<% end %>
+			</div>
+		<% end %>
+		<%unless  @match.is_completed %>
+			<%= link_to "Finish Match", match_finish_match_path(@match), class: 'btn btn-success btn-sm', data: {disable_with: "..."} %>
+		<%end%>
+	</div>
+</div>

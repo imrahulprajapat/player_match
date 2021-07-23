@@ -1,0 +1,37 @@
+<div class="container">
+	<div class="row">
+		<% unless @players.present? %>
+			<p>No top players at this moment please visit to create some</p>
+		<% end %>
+	</div>
+	<%= link_to "Match Dashboard", match_index_path, class: "btn btn-sm btn-info mt-2" %>
+	<h4>Top Players</h4><small>(According to their score or joining time means  if score is same then who joined match first will display first)</small>
+  <table class="table table-sm table-striped table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">FullName</th>
+        <th scope="col">Total Match</th>
+        <th scope="col">Contact Number</th>
+        <th scope="col">Highest Scoret</th>
+        <th scope="col">Lowest Score</th>
+        <th scope="col">Average Score</th>
+        <th scope="col">Hight score when/where(match)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @players.each do |player| %>
+      <tr>
+        <th scope="row"><%= player.id %></th>
+        <td><%= player.full_name %></td>
+        <td><%= player.profile.total_matches %></td>
+        <td><%= player.number %></td>
+        <td><%= player.profile.highest_score %></td>
+        <td><%= player.profile.lowest_score %></td>
+        <td><%= player.profile.avg_score %></td>
+        <td><%= link_to "Check", match_path(player.profile.highest_scorer_match), class: "btn btn-sm btn-primary" if player.profile.highest_scorer_match.present? %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
